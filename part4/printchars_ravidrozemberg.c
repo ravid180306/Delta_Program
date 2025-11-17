@@ -14,54 +14,50 @@ the following rules:
 * Author: ravid rozemberg
 \*-------------------------------------------------------*/
 #include <stdio.h>
-int main() 
-{
-    int n;
-    printf("Enter a positive integer: ");
-    scanf("%d", &n);
-    if (n <= 0) 
-    {
-        printf("Error: Please enter a positive integer.\n");
-        return 1;
-    }
+
+#define DIV2 2
+#define DIV3 3
+#define DIV5 5
+#define ERR_NEG_INPUT 1
+
+int main(void) {
+    int n, i, j;
     char ch;
-    if (n % 2 == 0) 
-    {
+
+    printf("Enter a positive integer: ");
+    if (scanf("%d", &n) != 1) {
+        printf("Invalid input.\n");
+        return ERR_NEG_INPUT;
+    }
+
+    if (n <= 0) {
+        printf("Error: Please enter a positive integer.\n");
+        return ERR_NEG_INPUT;
+    }
+
+    /* Priority: divisible by 2 -> '*'
+       else if divisible by 3 -> '^'
+       else if divisible by 5 -> '%'
+       else -> '@'
+       This single chain handles all combinations (e.g., divisible by 2 and 3)
+       because the first true condition wins. */
+    if (n % DIV2 == 0) {
         ch = '*';
-    } 
-    else if (n % 3 == 0) 
-    {
+    } else if (n % DIV3 == 0) {
         ch = '^';
-    } 
-    else if (n % 5 == 0) 
-    {
+    } else if (n % DIV5 == 0) {
         ch = '%';
-    } 
-    else 
-    {
+    } else {
         ch = '@';
     }
-    if((n%2==0)&&(n%3==0))//if n is even and divisible by 3
-    {
-        ch='*';//print *
-    }
-    else 
-    if((n%2==0)&&(n%5==0))//if n is even and divisible by 5
-    {
-        ch='*';//print *
-    }
-     else 
-     if((n%3==0)&&(n%5==0))//if n is divisible by 3 and 5
-    {
-        ch='^';//print ^
-    }
-    for (int i = 0; i < n; i++) 
-    {
-        for (int j = 0; j < n; j++) 
-        {
-            printf("%c", ch);
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++) {
+            putchar(ch);
         }
-        printf("\n");
+        putchar('\n');
     }
+
     return 0;
 }
+
