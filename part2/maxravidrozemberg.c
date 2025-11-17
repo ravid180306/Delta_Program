@@ -7,17 +7,8 @@
 -------------------------------------------------------*/
 int main() 
 {
-int x=6;
-int y=9;
-int z;
-if (x>y)//condition to check which variable is greater
-{
-    z=x;
-}
-else
-{
-    z=y;
-}
-    printf("The maximum value is: %d\n",z);//print the maximum value
-    return 0;
+int x = 10;
+int y = 20;
+int z = (x > y) ? x : y;
+printf("the max value is:%d\n", z);
 }
