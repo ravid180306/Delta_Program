@@ -11,7 +11,6 @@ messages:
 * Author: [ravid rozemberg]
 -------------------------------------------------------*/
 /*------------------------------------------------------
-* Function Name - [check_increasing] 
 *
 * Function Purpose - [to check if the array is strictly increasing.] 
 *
@@ -19,14 +18,13 @@ messages:
                  IN size - the size of the array.]
 * Return Values - [Returns 0 if the array is increasing, otherwise returns a non-zero value.]
 *
-* Author - [ravid rozemberg]
 -------------------------------------------------------*/
 int check_increasing(int arr[], int size)
 {
     int index_accurcy_of_increasing=0;//Index to return an integer value of if increasing or not
     for(int i = 0; i < size - 1; i++)
     {
-        if(arr[i] >= arr[i + 1])// If the current element is not less than the next
+        if(arr[i] > arr[i + 1])// If the current element is not less than the next
         {
             index_accurcy_of_increasing++;
         }
@@ -34,23 +32,23 @@ int check_increasing(int arr[], int size)
     return index_accurcy_of_increasing;
 }
 /*------------------------------------------------------
-* Function Name - [check_decreasing] 
-*
 * Function Purpose - [to check if the array is strictly decreasing.] 
 *
 * Parameters –  [ IN arr[] - an array of integers.
                  IN size - the size of the array.]
 * Return Values - [Returns 0 if the array is decreasing, otherwise returns a non-zero value.]
-* Author - [ravid rozemberg]
 -------------------------------------------------------*/
 int check_decreasing(int arr[], int size)
 {
      int index_accurcy_of_decreasing=0;//Index to return an integer value of if decreasing or not
     for(int i = 0; i < size - 1; i++)
     {
-        if(arr[i] <= arr[i + 1])// If the current element is not greater than the next
+        if(arr[i] < arr[i + 1])// If the current element is not greater than the next
         {
-           index_accurcy_of_decreasing++;
+           index_accurcy_of_decreasing=0;
+        }
+        else{
+              index_accurcy_of_decreasing=1;
         }
     }
     return index_accurcy_of_decreasing;
@@ -63,7 +61,7 @@ int check_decreasing(int arr[], int size)
 * Parameters –  [ IN arr[] - an array of integers.
                  IN size - the size of the array.]
 * Return Values - [Returns 0 if the array is constant, otherwise returns a non-zero value.]
-* Author - [ravid rozemberg]
+ 
 -------------------------------------------------------*/
 
 int check_constant(int arr[], int size)
@@ -73,8 +71,11 @@ int check_constant(int arr[], int size)
     {
         if(arr[i] != arr[i + 1])
         {
-            index_accurcy_of_const++;   
+            index_accurcy_of_const=0;   
         }
+        else{
+              index_accurcy_of_const=1;
+        }   
     }
     return index_accurcy_of_const;
 }
@@ -86,7 +87,6 @@ int check_constant(int arr[], int size)
 * Parameters –  [ IN arr[] - an array of integers.
                  IN size - the size of the array.]
 * Return Values - [Returns 0 if the array is messy, otherwise returns a non-zero value.]
-* Author - [ravid rozemberg]
 -------------------------------------------------------*/
 int check_messy(int arr[], int size)
 {
@@ -95,10 +95,36 @@ int check_messy(int arr[], int size)
     {
         if((arr[i+1] >= arr[i + 2] && arr[i] <= arr[i + 1]) || (arr[i+1] <= arr[i + 2] && arr[i] >= arr[i + 1]))// If the array is neither increasing, decreasing, nor constant
         {
-           index_accurcy_of_messy++;
+           index_accurcy_of_messy=0;
+        }
+        else{
+              index_accurcy_of_messy=1;
         }
     }
    return index_accurcy_of_messy;
+}
+void print_final_state_of_array(int arr[], int size)
+{
+    int increasing = check_increasing(arr, size);
+    int decreasing = check_decreasing(arr, size);
+    int constant = check_constant(arr, size);
+    if(increasing == 0)
+    {
+        printf("The array is increasing\n");
+        return;
+    }
+    if(decreasing == 0)
+    {
+        printf("The array is decreasing\n");
+        return; 
+    }
+    if(constant == 0)
+    {
+        printf("The array is constant\n");
+        return;
+    }
+    printf("The array is messed up\n");
+
 }
 int main()
 {
@@ -108,21 +134,6 @@ int main()
     {
         scanf("%d", &arr[i]);
     }
-    if(check_increasing(arr, 15)==0)// Check if the array is increasing
-    {
-        printf("The array is increasing\n");
-        return 0;
-    }
-    if(check_decreasing(arr, 15)==0)//  Check if the array is decreasing
-    {
-        printf("The array is decreasing\n");
-        return 0;
-    }
-        if(check_constant(arr, 15)==0)//    Check if the array is constant
-        {
-            printf("The array is constant\n");
-            return 0;
-        }
-        printf("The array is messed up\n");// If none of the above, the array is messy
+    print_final_state_of_array(arr, 15);// Call the function to print the final state of the array
     return 0;
 }
